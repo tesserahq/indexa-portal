@@ -140,7 +140,7 @@ function Document({
         {children}
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
-        <Toaster position="top-right" theme={theme} />
+        <Toaster position="top-right" theme={theme} duration={10000} />
       </body>
     </html>
   )
