@@ -10,6 +10,11 @@ export default [
   layout('layouts/private.layouts.tsx', [
     route('reindex-jobs', 'routes/main/reindex-jobs/layout.tsx', [
       index('routes/main/reindex-jobs/index.tsx'),
+      route('new', 'routes/main/reindex-jobs/new.tsx'),
+      route(':id', 'routes/main/reindex-jobs/detail/layout.tsx', [
+        index('routes/main/reindex-jobs/detail/index.tsx'),
+        route('overview', 'routes/main/reindex-jobs/detail/overview.tsx'),
+      ]),
     ]),
   ]),
 

@@ -39,8 +39,8 @@ export const FormDateTimePicker = ({
   required,
   hideError = false,
   placeholder = 'Pick a date and time',
-  dateFormat = 'PPP',
-  timeFormat = 'hh:mm',
+  dateFormat = 'yyyy-MM-dd',
+  timeFormat = 'HH:mm:ss',
   disabled = false,
   rules,
 }: FormDateTimePickerProps) => {
@@ -74,7 +74,7 @@ export const FormDateTimePicker = ({
             date.setMinutes(parseInt(minutes || '0', 10))
           }
 
-          fieldProps.onChange(date.toISOString())
+          fieldProps.onChange(format(date, 'yyyy-MM-dd HH:mm:ss'))
           setIsOpen(false)
         }
 
@@ -91,7 +91,7 @@ export const FormDateTimePicker = ({
           newDate.setSeconds(0)
           newDate.setMilliseconds(0)
 
-          fieldProps.onChange(newDate.toISOString())
+          fieldProps.onChange(format(newDate, 'yyyy-MM-dd HH:mm:ss'))
         }
 
         return (
