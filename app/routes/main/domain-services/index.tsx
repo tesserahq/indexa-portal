@@ -1,7 +1,4 @@
 import { DataTable } from '@/components/data-table'
-import DeleteDomainService, {
-  DeleteDomainServiceHandle,
-} from '@/components/dialog/delete-domain-service'
 import { AppPreloader } from '@/components/loader/pre-loader'
 import { useApp } from '@/context/AppContext'
 import { Badge } from '@/modules/shadcn/ui/badge'
@@ -15,6 +12,9 @@ import { EllipsisVertical, EyeIcon, Pencil, Trash2 } from 'lucide-react'
 import { useMemo, useRef } from 'react'
 import { Link, useLoaderData, useNavigate } from 'react-router'
 import { DateTime, EmptyContent, NewButton } from 'tessera-ui/components'
+import DeleteConfirmation, {
+  type DeleteConfirmationHandle,
+} from 'tessera-ui/components/delete-confirmation'
 
 export const getEnabledBadgeProps = (enabled?: boolean) => {
   if (enabled) {
@@ -44,7 +44,7 @@ export default function DomainServices() {
   const { apiUrl, nodeEnv, pagination } = useLoaderData<typeof loader>()
   const { token, isLoading: isLoadingAuth } = useApp()
   const navigate = useNavigate()
-  const deleteRef = useRef<DeleteDomainServiceHandle>(null)
+  const deleteRef = useRef<DeleteConfirmationHandle>(null)
 
   const config = { apiUrl: apiUrl!, token: token!, nodeEnv: nodeEnv }
 
@@ -240,7 +240,7 @@ export default function DomainServices() {
         <DataTable columns={columns} data={data?.items || []} meta={meta} isLoading={isLoading} />
       )}
 
-      <DeleteDomainService ref={deleteRef} />
+      <DeleteConfirmation ref={deleteRef} />
     </div>
   )
 }

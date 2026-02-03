@@ -1,7 +1,4 @@
 import { DetailContent } from '@/components/detail-content'
-import DeleteDomainService, {
-  type DeleteDomainServiceHandle,
-} from '@/components/dialog/delete-domain-service'
 import { AppPreloader } from '@/components/loader/pre-loader'
 import { useApp } from '@/context/AppContext'
 import { Badge } from '@/modules/shadcn/ui/badge'
@@ -12,6 +9,9 @@ import { EllipsisVertical, Pencil, Trash2 } from 'lucide-react'
 import { useRef } from 'react'
 import { useLoaderData, useNavigate } from 'react-router'
 import { DateTime, EmptyContent } from 'tessera-ui/components'
+import DeleteConfirmation, {
+  type DeleteConfirmationHandle,
+} from 'tessera-ui/components/delete-confirmation'
 import { getEnabledBadgeProps } from '..'
 
 export async function loader({ params }: { params: { id?: string } }) {
@@ -29,7 +29,7 @@ export default function DomainServiceDetail() {
   const { apiUrl, nodeEnv, domainServiceId } = useLoaderData<typeof loader>()
   const { token, isLoading: isLoadingAuth } = useApp()
   const navigate = useNavigate()
-  const deleteRef = useRef<DeleteDomainServiceHandle>(null)
+  const deleteRef = useRef<DeleteConfirmationHandle>(null)
 
   const config = { apiUrl: apiUrl!, token: token!, nodeEnv: nodeEnv }
 
@@ -175,7 +175,8 @@ export default function DomainServiceDetail() {
           </dd>
         </div>
       </div>
-      <DeleteDomainService ref={deleteRef} />
+
+      <DeleteConfirmation ref={deleteRef} />
     </DetailContent>
   )
 }
