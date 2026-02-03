@@ -25,6 +25,7 @@ export default [
         route('overview', 'routes/main/domain-services/detail/overview.tsx'),
       ]),
     ]),
+    route('events', 'routes/main/events/layout.tsx', [index('routes/main/events/index.tsx')]),
   ]),
 
   // Access Denied

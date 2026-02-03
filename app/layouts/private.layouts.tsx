@@ -5,7 +5,7 @@ import { AppPreloader } from '@/components/loader/pre-loader'
 import { useApp } from '@/context/AppContext'
 import '@/styles/sidebar.css'
 import { cn } from '@shadcn/lib/utils'
-import { RefreshCcw } from 'lucide-react'
+import { CalendarCog, RefreshCcw } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Outlet, useLoaderData } from 'react-router'
 
@@ -89,6 +89,11 @@ export default function Layout() {
       title: 'Domain Services',
       path: `/domain-services`,
       icon: <DatabaseSearchIcon />,
+    },
+    {
+      title: 'Events',
+      path: `/events`,
+      icon: <CalendarCog size={18} />,
     },
   ]
 
