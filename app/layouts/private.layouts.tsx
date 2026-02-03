@@ -1,10 +1,11 @@
+import { DatabaseSearchIcon } from '@/components/icons/database-search'
 import { Header, SidebarPanel, SidebarPanelMin } from '@/components/layouts'
 import { IMenuItemProps } from '@/components/layouts/sidebar/types'
 import { AppPreloader } from '@/components/loader/pre-loader'
 import { useApp } from '@/context/AppContext'
 import '@/styles/sidebar.css'
 import { cn } from '@shadcn/lib/utils'
-import { KeyRound, RefreshCcw, Users } from 'lucide-react'
+import { RefreshCcw } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Outlet, useLoaderData } from 'react-router'
 
@@ -83,6 +84,11 @@ export default function Layout() {
       title: 'Reindex Jobs',
       path: `/reindex-jobs`,
       icon: <RefreshCcw size={18} />,
+    },
+    {
+      title: 'Domain Services',
+      path: `/domain-services`,
+      icon: <DatabaseSearchIcon />,
     },
   ]
 

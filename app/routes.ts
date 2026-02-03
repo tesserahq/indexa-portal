@@ -16,6 +16,15 @@ export default [
         route('overview', 'routes/main/reindex-jobs/detail/overview.tsx'),
       ]),
     ]),
+    route('domain-services', 'routes/main/domain-services/layout.tsx', [
+      index('routes/main/domain-services/index.tsx'),
+      route('new', 'routes/main/domain-services/new.tsx'),
+      route(':id/edit', 'routes/main/domain-services/edit.tsx'),
+      route(':id', 'routes/main/domain-services/detail/layout.tsx', [
+        index('routes/main/domain-services/detail/index.tsx'),
+        route('overview', 'routes/main/domain-services/detail/overview.tsx'),
+      ]),
+    ]),
   ]),
 
   // Access Denied
