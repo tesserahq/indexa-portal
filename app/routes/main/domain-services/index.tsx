@@ -198,7 +198,7 @@ export default function DomainServices() {
   if (error) {
     return (
       <EmptyContent
-        image="/images/empty-search.png"
+        image="/images/empty-domain-services.png"
         title="Failed to get domain services"
         description={error.message}
       />
@@ -229,7 +229,7 @@ export default function DomainServices() {
 
       {!isLoading && data?.items.length === 0 ? (
         <EmptyContent
-          image="/images/empty-search.png"
+          image="/images/empty-domain-services.png"
           title="No domain services found"
           description="Get started by creating your first domain service.">
           <Button onClick={() => navigate('/domain-services/new')} variant="black">

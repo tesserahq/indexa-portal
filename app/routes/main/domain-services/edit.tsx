@@ -48,7 +48,9 @@ export default function DomainServiceEdit() {
       <EmptyContent
         image="/images/empty-search.png"
         title="Domain service not found"
-        description={(error as Error)?.message || 'The requested domain service could not be found.'}
+        description={
+          (error as Error)?.message || 'The requested domain service could not be found.'
+        }
       />
     )
   }
