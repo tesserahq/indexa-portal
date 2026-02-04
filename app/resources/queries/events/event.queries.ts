@@ -20,3 +20,16 @@ export async function fetchEvents(config: IQueryConfig, params: IQueryParams) {
 
   return response as IPaging<EventType>
 }
+
+/**
+ * Index
+ */
+export async function eventIndex(config: IQueryConfig, event_id: string) {
+  const { apiUrl, token, nodeEnv } = config
+
+  const response = await fetchApi(`${apiUrl}/${ENDPOINT}/${event_id}/index`, token, nodeEnv, {
+    method: 'POST',
+  })
+
+  return response
+}

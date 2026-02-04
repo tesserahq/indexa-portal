@@ -85,7 +85,7 @@ export default function ReIndexJobs() {
     () => [
       {
         accessorKey: 'id',
-        header: 'Job ID',
+        header: 'ID',
         cell: ({ row }) => {
           const { id } = row.original
           return (
