@@ -8,6 +8,7 @@ export default [
   route('/', 'routes/index.tsx', { id: 'home' }),
   // Private Routes
   layout('layouts/private.layouts.tsx', [
+    // Reindex Jobs
     route('reindex-jobs', 'routes/main/reindex-jobs/layout.tsx', [
       index('routes/main/reindex-jobs/index.tsx'),
       route('new', 'routes/main/reindex-jobs/new.tsx'),
@@ -16,6 +17,8 @@ export default [
         route('overview', 'routes/main/reindex-jobs/detail/overview.tsx'),
       ]),
     ]),
+
+    // Domain Services
     route('domain-services', 'routes/main/domain-services/layout.tsx', [
       index('routes/main/domain-services/index.tsx'),
       route('new', 'routes/main/domain-services/new.tsx'),
@@ -25,7 +28,14 @@ export default [
         route('overview', 'routes/main/domain-services/detail/overview.tsx'),
       ]),
     ]),
+
+    // Events
     route('events', 'routes/main/events/layout.tsx', [index('routes/main/events/index.tsx')]),
+
+    // Providers
+    route('providers', 'routes/main/providers/layout.tsx', [
+      index('routes/main/providers/index.tsx'),
+    ]),
   ]),
 
   // Access Denied
