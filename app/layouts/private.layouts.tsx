@@ -5,7 +5,7 @@ import { AppPreloader } from '@/components/loader/pre-loader'
 import { useApp } from '@/context/AppContext'
 import '@/styles/sidebar.css'
 import { cn } from '@shadcn/lib/utils'
-import { CalendarCog, RefreshCcw } from 'lucide-react'
+import { CalendarCog, RefreshCcw, ServerCog } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Outlet, useLoaderData } from 'react-router'
 
@@ -94,6 +94,11 @@ export default function Layout() {
       title: 'Events',
       path: `/events`,
       icon: <CalendarCog size={18} />,
+    },
+    {
+      title: 'Providers',
+      path: '/providers',
+      icon: <ServerCog size={18} />,
     },
   ]
 
