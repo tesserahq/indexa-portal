@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IQueryConfig, IQueryParams } from '@/resources/queries'
-import { fetchEvents } from '@/resources/queries/events/event.queries'
+import { eventIndex, fetchEvents } from '@/resources/queries/events/event.queries'
 import { EventType } from '@/resources/queries/events/event.type'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'tessera-ui'
 
 /**
  * Custom error class for query errors
@@ -58,5 +59,45 @@ export function useEvents(
     },
     staleTime: options?.staleTime || 5 * 60 * 1000,
     enabled: options?.enabled !== false,
+  })
+}
+
+/**
+ * Hook for fetching paginated events
+ * @config - Event query configuration
+ * @event_id - Event ID
+ * @options - Event query options
+ */
+export function useEventIndex(
+  config: IQueryConfig,
+  options?: {
+    onSuccess?: (data: any) => void
+    onError?: (error: QueryError) => void
+  }
+) {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (payload: { event_id: string }) => {
+      if (!config.token) {
+        throw new QueryError('Token is required', 'TOKEN_REQUIRED')
+      }
+
+      return await eventIndex(config, payload.event_id)
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: eventQueryKeys.lists() })
+
+      toast.success('Event indexed successfully!', { duration: 3000 })
+
+      options?.onSuccess?.(data)
+    },
+    onError: (error: QueryError) => {
+      toast.error('Failed to index event', {
+        description: error?.message || 'Please try again.',
+      })
+
+      options?.onError?.(error)
+    },
   })
 }
