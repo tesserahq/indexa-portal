@@ -8,12 +8,12 @@ import { cn } from '@shadcn/lib/utils'
 import { Link, useSubmit } from 'react-router'
 import { Button } from '@shadcn/ui/button'
 import { PanelLeft } from 'lucide-react'
-import { AppMenu, AppMenuProps } from 'tessera-ui'
+import { AppMenu, type AppHostUrls } from 'tessera-ui'
 
 interface IHeaderProps {
   apiUrl: string
   nodeEnv: NodeENVType
-  apps: AppMenuProps[]
+  appHostUrls: AppHostUrls
   action?: React.ReactNode
   withSidebar?: boolean
   isExpanded?: boolean
@@ -21,7 +21,24 @@ interface IHeaderProps {
   hostUrl?: string
 }
 
-export function Header({ isExpanded, setIsExpanded, action, withSidebar, apps }: IHeaderProps) {
+const DEFAULT_APP_HOST_URLS: AppHostUrls = {
+  quore: '',
+  looply: '',
+  vaulta: '',
+  identies: '',
+  custos: '',
+  indexa: '',
+  sendly: '',
+  orcha: '',
+}
+
+export function Header({
+  isExpanded,
+  setIsExpanded,
+  action,
+  withSidebar,
+  appHostUrls,
+}: IHeaderProps) {
   const requestInfo = useRequestInfo()
   const submit = useSubmit()
   const onSetTheme = (theme: string) => {
@@ -76,7 +93,7 @@ export function Header({ isExpanded, setIsExpanded, action, withSidebar, apps }:
 
             {/* Right content */}
             <div className="flex items-center space-x-1 lg:space-x-5">
-              <AppMenu apps={apps || []} />
+              <AppMenu currentApp="indexa" appHostUrls={appHostUrls ?? DEFAULT_APP_HOST_URLS} />
               {/* <NewResourceShortcut /> */}
               <ProfileMenu
                 selectedTheme={requestInfo.userPrefs.theme || 'system'}

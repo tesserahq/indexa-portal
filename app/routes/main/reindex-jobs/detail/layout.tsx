@@ -28,7 +28,7 @@ export default function ReindexJobDetailLayout() {
     {
       title: 'Overview',
       path: `/reindex-jobs/${params.id}/overview`,
-      icon: <FileText size={18} />,
+      icon: FileText,
     },
   ]
 

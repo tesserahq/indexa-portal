@@ -27,7 +27,7 @@ export default function DomainServiceDetailLayout() {
     {
       title: 'Overview',
       path: `/domain-services/${params.id}/overview`,
-      icon: <FileText size={18} />,
+      icon: FileText,
     },
   ]
 
