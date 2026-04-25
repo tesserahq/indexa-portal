@@ -14,14 +14,14 @@ import DeleteConfirmation, {
 } from 'tessera-ui/components/delete-confirmation'
 import { getEnabledBadgeProps } from '..'
 
-export async function loader({ params }: { params: { id?: string } }) {
+export async function loader({ params }: { params: { domainID?: string } }) {
   const apiUrl = process.env.API_URL
   const nodeEnv = process.env.NODE_ENV
 
   return {
     apiUrl,
     nodeEnv,
-    domainServiceId: params.id ?? '',
+    domainServiceId: params.domainID ?? '',
   }
 }
 

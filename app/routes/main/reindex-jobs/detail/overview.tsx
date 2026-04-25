@@ -18,14 +18,14 @@ import { useLoaderData, useNavigate } from 'react-router'
 import { DateTime, EmptyContent } from 'tessera-ui/components'
 import { getStatusBadgeProps } from '..'
 
-export async function loader({ params }: { params: { id?: string } }) {
+export async function loader({ params }: { params: { reindexID?: string } }) {
   const apiUrl = process.env.API_URL
   const nodeEnv = process.env.NODE_ENV
 
   return {
     apiUrl,
     nodeEnv,
-    reindexJobId: params.id ?? '',
+    reindexJobId: params.reindexID,
   }
 }
 
@@ -37,7 +37,7 @@ export default function ReindexJobDetail() {
 
   const config = { apiUrl: apiUrl!, token: token!, nodeEnv: nodeEnv }
 
-  const { data, isLoading, error } = useReindexJob(config, reindexJobId, {
+  const { data, isLoading, error } = useReindexJob(config, reindexJobId!, {
     enabled: !!token && !isLoadingAuth && Boolean(reindexJobId),
   })
   const cancelReindexJob = useCancelReindexJob(config)
