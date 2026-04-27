@@ -10,42 +10,13 @@ import { Layout, MainItemProps, TesseraProvider } from 'tessera-ui'
 export function loader() {
   const identiesApiUrl = process.env.IDENTIES_API_URL
 
-  // app host urls
-  const quoreHostUrl = process.env.QUORE_HOST_URL
-  const looplyHostUrl = process.env.LOOPLY_HOST_URL
-  const vaultaHostUrl = process.env.VAULTA_HOST_URL
-  const identiesHostUrl = process.env.IDENTIES_HOST_URL
-  const orchaHostUrl = process.env.ORCHA_HOST_URL
-  const custosHostUrl = process.env.CUSTOS_HOST_URL
-  const indexaHostUrl = process.env.INDEXA_HOST_URL || process.env.HOST_URL
-  const sendlyHostUrl = process.env.SENDLY_HOST_URL
-
   return {
     identiesApiUrl,
-    quoreHostUrl,
-    looplyHostUrl,
-    vaultaHostUrl,
-    identiesHostUrl,
-    orchaHostUrl,
-    custosHostUrl,
-    indexaHostUrl,
-    sendlyHostUrl,
   }
 }
 
 export default function PrivateLayout() {
-  const {
-    identiesApiUrl,
-    quoreHostUrl,
-    looplyHostUrl,
-    vaultaHostUrl,
-    identiesHostUrl,
-    orchaHostUrl,
-    custosHostUrl,
-    indexaHostUrl,
-    sendlyHostUrl,
-  } = useLoaderData<typeof loader>()
-
+  const { identiesApiUrl } = useLoaderData<typeof loader>()
   const { isLoading, token } = useApp()
   const requestInfo = useRequestInfo()
   const submit = useSubmit()
@@ -61,17 +32,6 @@ export default function PrivateLayout() {
         fetcherKey: 'theme-fetcher',
       }
     )
-  }
-
-  const appHostUrls = {
-    quore: quoreHostUrl ?? '',
-    looply: looplyHostUrl ?? '',
-    vaulta: vaultaHostUrl ?? '',
-    identies: identiesHostUrl ?? '',
-    orcha: orchaHostUrl ?? '',
-    custos: custosHostUrl ?? '',
-    indexa: indexaHostUrl ?? '',
-    sendly: sendlyHostUrl ?? '',
   }
 
   const menuItems: MainItemProps[] = [
@@ -107,9 +67,8 @@ export default function PrivateLayout() {
 
   return (
     <TesseraProvider identiesApiUrl={identiesApiUrl} token={token}>
-      <Layout.Main menuItems={menuItems}>
+      <Layout.Main menuItems={menuItems} collapseSidebar={false}>
         <Layout.Header
-          appHostUrls={appHostUrls}
           actionLogout={() => navigate('/logout', { replace: true })}
           actionProfile={() => {}}
           defaultAvatar=""

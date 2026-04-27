@@ -1,32 +1,30 @@
 import { AppPreloader } from '@/components/loader/pre-loader'
 import { useApp } from '@/context/AppContext'
+import useBreadcrumb from '@/hooks/useBreadcrumb'
 import { Button } from '@/modules/shadcn/ui/button'
 import { useDomainService } from '@/resources/hooks/domain-services'
-import { FileText, Pencil } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { FileText } from 'lucide-react'
 import { Outlet, useLoaderData, useLocation, useNavigate, useParams } from 'react-router'
 import { EmptyContent } from 'tessera-ui/components'
-import { Layout, DetailItemsProps, BreadcrumbItemData } from 'tessera-ui/layouts'
+import { Layout, DetailItemsProps } from 'tessera-ui/layouts'
 
-export function loader({ params }: { params: { id: string } }) {
+export function loader({ params }: { params: { domainID: string } }) {
   const apiUrl = process.env.API_URL
   const nodeEnv = process.env.NODE_ENV
 
-  return { apiUrl, nodeEnv, id: params.id }
+  return { apiUrl, nodeEnv, id: params.domainID }
 }
 
 export default function DomainServiceDetailLayout() {
-  const { apiUrl, nodeEnv } = useLoaderData<typeof loader>()
+  const { apiUrl, nodeEnv, id } = useLoaderData<typeof loader>()
   const { token } = useApp()
   const params = useParams()
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const [breadcrumb, setBreadcrumb] = useState<BreadcrumbItemData[]>([])
-
   const menuItems: DetailItemsProps[] = [
     {
       title: 'Overview',
-      path: `/domain-services/${params.id}/overview`,
+      path: `/domain-services/${id}/overview`,
       icon: FileText,
     },
   ]
@@ -35,31 +33,17 @@ export default function DomainServiceDetailLayout() {
     data: domainService,
     isLoading,
     error,
-  } = useDomainService({ apiUrl: apiUrl!, token: token!, nodeEnv: nodeEnv }, params.id as string, {
+  } = useDomainService({ apiUrl: apiUrl!, token: token!, nodeEnv: nodeEnv }, id as string, {
     enabled: !!token,
   })
 
-  const generatingBreadcrumb = async () => {
-    const breadcrumbItems = []
-    const pathParts = pathname.split('/').filter(Boolean)
-
-    for (let index = 0; index < pathParts.length; index++) {
-      const part = pathParts[index]
-
-      breadcrumbItems.push({
-        label: part === params?.id ? domainService?.name || '' : part,
-        link: `/${pathParts.slice(0, index + 1).join('/')}`,
-      })
-    }
-
-    setBreadcrumb(breadcrumbItems)
-  }
-
-  useEffect(() => {
-    if (domainService) {
-      generatingBreadcrumb()
-    }
-  }, [domainService, pathname])
+  const breadcrumbs = useBreadcrumb({
+    pathname,
+    params,
+    token: token!,
+    apiUrl: apiUrl!,
+    nodeEnv: nodeEnv!,
+  })
 
   if (isLoading || !token) {
     return <AppPreloader className="min-h-screen" />
@@ -70,14 +54,17 @@ export default function DomainServiceDetailLayout() {
       <EmptyContent
         title="Domain Service Not Found"
         image="/images/empty-search.png"
-        description={`We can't find domain service with ID ${params.id} ${(error as Error)?.message}`}>
+        description={`We can't find domain service with ID ${id} ${(error as Error)?.message}`}>
         <Button onClick={() => navigate('/domain-services')}>Back to Domain Services</Button>
       </EmptyContent>
     )
   }
 
   return (
-    <Layout.Detail menuItems={menuItems} breadcrumb={breadcrumb}>
+    <Layout.Detail
+      menuItems={menuItems}
+      breadcrumbs={breadcrumbs}
+      isLoading={breadcrumbs.length === 0 || !token || !id}>
       <div className="max-w-screen-2xl mx-auto">
         <Outlet />
       </div>
