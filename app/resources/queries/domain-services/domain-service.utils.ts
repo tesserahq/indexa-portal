@@ -13,7 +13,7 @@ export function domainServiceToFormValues(
     base_url: domainService.base_url || '',
     indexes_path_prefix: domainService.indexes_path_prefix || '',
     excluded_entities: domainService.excluded_entities || [],
-    enabled: Boolean(domainService.enabled),
+    enabled: domainService.enabled ?? true,
   }
 }
 
