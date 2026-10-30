@@ -8,7 +8,7 @@ import { useEvents } from '@/resources/hooks/events'
 import { useEventIndex } from '@/resources/hooks/events/use-events'
 import { EventType } from '@/resources/queries/events'
 import { ensureCanonicalPagination } from '@/utils/helpers/pagination.helper'
-import { ColumnDef } from '@tanstack/react-table'
+import type { LegacyColumnDef } from '@tanstack/react-table/legacy'
 import { EllipsisVertical, FileJson, Loader2, Search } from 'lucide-react'
 import { useMemo, useRef } from 'react'
 import { useLoaderData } from 'react-router'
@@ -44,7 +44,7 @@ export default function EventsListing() {
   )
   const { mutateAsync: handleEventIndex, isPending: isIndexing } = useEventIndex(config)
 
-  const columns = useMemo<ColumnDef<EventType>[]>(
+  const columns = useMemo<LegacyColumnDef<EventType>[]>(
     () => [
       {
         accessorKey: 'id',

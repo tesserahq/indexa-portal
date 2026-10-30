@@ -4,7 +4,7 @@ import { useApp } from '@/context/AppContext'
 import { Badge } from '@/modules/shadcn/ui/badge'
 import { useProviders } from '@/resources/hooks/providers'
 import { ProviderType } from '@/resources/queries/providers'
-import { ColumnDef } from '@tanstack/react-table'
+import type { LegacyColumnDef } from '@tanstack/react-table/legacy'
 import { useMemo } from 'react'
 import { useLoaderData } from 'react-router'
 import { EmptyContent } from 'tessera-ui'
@@ -32,7 +32,7 @@ export default function ProviderPage() {
 
   const { data, isLoading, error } = useProviders(config)
 
-  const columns = useMemo<ColumnDef<ProviderType>[]>(
+  const columns = useMemo<LegacyColumnDef<ProviderType>[]>(
     () => [
       {
         accessorKey: 'name',
