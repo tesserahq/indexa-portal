@@ -7,7 +7,7 @@ import { useDeleteDomainService, useDomainServices } from '@/resources/hooks/dom
 import { DomainServiceType } from '@/resources/queries/domain-services'
 import { ensureCanonicalPagination } from '@/utils/helpers/pagination.helper'
 import { Button } from '@shadcn/ui/button'
-import { ColumnDef } from '@tanstack/react-table'
+import type { LegacyColumnDef } from '@tanstack/react-table/legacy'
 import { EllipsisVertical, EyeIcon, Pencil, Trash2 } from 'lucide-react'
 import { useMemo, useRef } from 'react'
 import { Link, useLoaderData, useNavigate } from 'react-router'
@@ -65,7 +65,7 @@ export default function DomainServices() {
     }
   }
 
-  const columns = useMemo<ColumnDef<DomainServiceType>[]>(
+  const columns = useMemo<LegacyColumnDef<DomainServiceType>[]>(
     () => [
       {
         accessorKey: 'name',

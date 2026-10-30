@@ -11,7 +11,7 @@ import {
 import { ReIndexJobType } from '@/resources/queries/reindex-jobs'
 import { ensureCanonicalPagination } from '@/utils/helpers/pagination.helper'
 import { Button } from '@shadcn/ui/button'
-import { ColumnDef } from '@tanstack/react-table'
+import type { LegacyColumnDef } from '@tanstack/react-table/legacy'
 import { AlertTriangle, EllipsisVertical, EyeIcon, Loader2, PlayIcon } from 'lucide-react'
 import { useMemo, useRef } from 'react'
 import { Link, useLoaderData, useNavigate } from 'react-router'
@@ -81,7 +81,7 @@ export default function ReIndexJobs() {
     await runReindexJob.mutateAsync(jobId)
   }
 
-  const columns = useMemo<ColumnDef<ReIndexJobType>[]>(
+  const columns = useMemo<LegacyColumnDef<ReIndexJobType>[]>(
     () => [
       {
         accessorKey: 'id',
